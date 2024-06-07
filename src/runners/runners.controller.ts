@@ -13,7 +13,10 @@ import { RequestRunnerDto } from './dto/create-runner.dto';
 import { RequestRunnerTeamDto } from './dto/create-runner.dto';
 import { UpdateRunnerDto } from './dto/update-runner.dto';
 import { JwtGuard } from '../guards/jwt.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
+@ApiTags('Runners')
 @UseGuards(JwtGuard)
 @Controller('runners')
 export class RunnersController {

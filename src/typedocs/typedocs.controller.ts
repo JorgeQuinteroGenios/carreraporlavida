@@ -1,8 +1,8 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { TypedocsService } from './typedocs.service';
-import { JwtGuard } from '../guards/jwt.guard';
+import { ApiTags } from '@nestjs/swagger';
 
-@UseGuards(JwtGuard)
+@ApiTags('Document Type')
 @Controller('typedocs')
 export class TypedocsController {
   constructor(private readonly typedocsService: TypedocsService) {}

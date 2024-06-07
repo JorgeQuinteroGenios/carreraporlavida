@@ -12,7 +12,10 @@ import { TeamsService } from './teams.service';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
 import { JwtGuard } from '../guards/jwt.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
+@ApiTags('Teams')
 @UseGuards(JwtGuard)
 @Controller('teams')
 export class TeamsController {

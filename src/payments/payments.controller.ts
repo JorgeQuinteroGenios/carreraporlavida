@@ -13,7 +13,10 @@ import { UpdateOrderDto } from './dto/update-order.dto';
 import { CreateEntryDto } from './dto/create-entry.dto';
 import { UpdateEntryDto } from './dto/update-entry.dto';
 import { JwtGuard } from '../guards/jwt.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
+@ApiTags('Payments')
 @UseGuards(JwtGuard)
 @Controller('payments')
 export class PaymentsController {

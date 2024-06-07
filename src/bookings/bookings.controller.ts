@@ -12,11 +12,14 @@ import { BookingsService } from './bookings.service';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { UpdateBookingDto } from './dto/update-booking.dto';
 import { JwtGuard } from '../guards/jwt.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Bookings')
 @Controller('bookings')
 export class BookingsController {
   constructor(private readonly bookingsService: BookingsService) {}
 
+  @ApiBearerAuth()
   @UseGuards(JwtGuard)
   @Post()
   createBooking(@Body() createBookingDto: CreateBookingDto) {
@@ -33,6 +36,7 @@ export class BookingsController {
     return this.bookingsService.findOneBooking(+id);
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtGuard)
   @Patch(':id')
   updateBooking(
@@ -42,6 +46,7 @@ export class BookingsController {
     return this.bookingsService.updateBooking(+id, updateBookingDto);
   }
 
+  @ApiBearerAuth()
   @UseGuards(JwtGuard)
   @Delete(':id')
   removeBooking(@Param('id') id: string) {
