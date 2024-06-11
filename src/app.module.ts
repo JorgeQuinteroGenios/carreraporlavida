@@ -12,6 +12,8 @@ import { TypedocsModule } from './typedocs/typedocs.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
+import { DepartmentsModule } from './departments/departments.module';
+import { CitiesModule } from './cities/cities.module';
 
 @Module({
   imports: [
@@ -43,6 +45,8 @@ import { AppController } from './app.controller';
     TeamsModule,
     TypedocsModule,
     AuthModule,
+    DepartmentsModule,
+    CitiesModule,
   ],
   controllers: [AppController],
   providers: [],
