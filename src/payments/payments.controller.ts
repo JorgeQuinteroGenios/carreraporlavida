@@ -14,6 +14,7 @@ import { CreateEntryDto } from './dto/create-entry.dto';
 import { UpdateEntryDto } from './dto/update-entry.dto';
 import { JwtGuard } from '../guards/jwt.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { WompiDto } from './dto/wompi.dto';
 
 @ApiBearerAuth()
 @ApiTags('Payments')
@@ -66,5 +67,10 @@ export class PaymentsController {
   @Delete('entry/:entryId')
   removeEntry(@Param('entryId') entryId: string) {
     return this.paymentsService.removeEntry(+entryId);
+  }
+
+  @Post('wompi')
+  wompiPay(@Body() payload: WompiDto) {
+    return this.paymentsService.wompiPay(String(payload.value * 100),payload.userId);
   }
 }

@@ -8,6 +8,8 @@ import { Repository } from 'typeorm';
 import { EntryEntity } from './entities/entries.entity';
 import { UserEntity } from '../users/entities/user.entity';
 import { ProductEntity } from '../products/entities/product.entity';
+import * as process from 'node:process';
+import { timestamp } from 'rxjs';
 
 @Injectable()
 export class PaymentsService {
@@ -89,5 +91,27 @@ export class PaymentsService {
 
   removeEntry(entryId: number) {
     return this.entryRepository.delete({ entryId });
+  }
+
+  async wompiPay(value: string, userId: string) {
+    const publicKey = process.env.COMMERCE_PUBLIC_KEY;
+    const integrityKey = process.env.COMMERCE_INTEGRITY_KEY;
+    const time = Date.now();
+    const reference = userId + time;
+    const currency = 'COP';
+    const concatKey = reference + value + currency + integrityKey;
+    const encondedText = new TextEncoder().encode(concatKey);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', encondedText);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const signature = hashArray
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join('');
+    return {
+      publicKey,
+      currency,
+      value,
+      reference,
+      signature,
+    };
   }
 }
