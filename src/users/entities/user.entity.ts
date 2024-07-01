@@ -1,11 +1,12 @@
 import {
   Column,
   CreateDateColumn,
-  Entity, OneToMany,
+  Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import {OrderEntity} from "../../payments/entities/orders.entity";
+import { OrderEntity } from '../../payments/entities/orders.entity';
 
 @Entity('users')
 export class UserEntity {
